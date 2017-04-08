@@ -3,7 +3,7 @@
     function get_web_page( $url )
     {
         $user_agent = 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0';
-        
+
         $options = array(
 
             CURLOPT_CUSTOMREQUEST  => $_SERVER['REQUEST_METHOD'],        //set request type post or get
@@ -40,10 +40,7 @@
         $header['content'] = $content;
         return $header;
     }
-	
-	echo "test";
-	print_r($_SERVER);
-	
+
 	if (!isset($_GET["url"]))
 	{
 		http_response_code(404);
@@ -72,6 +69,6 @@
 	else
 	{
 		header("Content-Type: " . $result["content_type"]);
-		//echo $result['content'];
+		echo $result['content'];
 	}
 ?>
