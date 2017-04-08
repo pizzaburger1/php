@@ -4,8 +4,6 @@
     {
         $user_agent = 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0';
         
-        print_r($_SERVER);
-
         $options = array(
 
             CURLOPT_CUSTOMREQUEST  => $_SERVER['REQUEST_METHOD'],        //set request type post or get
@@ -43,6 +41,8 @@
         return $header;
     }
 
+	print_r($_SERVER);
+	
 	if (!isset($_GET["url"]))
 	{
 		http_response_code(404);
