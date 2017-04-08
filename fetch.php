@@ -3,6 +3,8 @@
     function get_web_page( $url )
     {
         $user_agent = 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0';
+        
+        echo $_SERVER['REQUEST_METHOD'];
 
         $options = array(
 
