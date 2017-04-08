@@ -40,7 +40,8 @@
         $header['content'] = $content;
         return $header;
     }
-
+	
+	echo "test";
 	print_r($_SERVER);
 	
 	if (!isset($_GET["url"]))
@@ -71,6 +72,6 @@
 	else
 	{
 		header("Content-Type: " . $result["content_type"]);
-		echo $result['content'];
+		//echo $result['content'];
 	}
 ?>
