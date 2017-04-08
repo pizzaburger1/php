@@ -2,12 +2,12 @@
 
     function get_web_page( $url )
     {
-        $user_agent='Mozilla/5.0 (Windows NT 6.1; rv:8.0) Gecko/20100101 Firefox/8.0';
-
+        $user_agent = 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0';
+        
         $options = array(
 
-            CURLOPT_CUSTOMREQUEST  => "GET",        //set request type post or get
-            CURLOPT_POST           => false,        //set to GET
+            CURLOPT_CUSTOMREQUEST  => $_SERVER['REQUEST_METHOD'],        //set request type post or get
+            CURLOPT_POST           => $_SERVER['REQUEST_METHOD'] == "POST",        //set to GET
             CURLOPT_USERAGENT      => $user_agent, //set user agent
             CURLOPT_RETURNTRANSFER => true,     // return web page
             CURLOPT_HEADER         => false,    // don't return headers
@@ -17,10 +17,18 @@
             CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
             CURLOPT_TIMEOUT        => 120,      // timeout on response
             CURLOPT_MAXREDIRS      => 10,       // stop after 10 redirects
+            CURLOPT_HTTPHEADER     => array('Content-Type: ' . $_SERVER["CONTENT_TYPE"]),
         );
 
         $ch      = curl_init( $url );
         curl_setopt_array( $ch, $options );
+
+        if ($_SERVER['REQUEST_METHOD'] == "POST")
+        {
+            $post = file_get_contents('php://input');
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        }
+
         $content = curl_exec( $ch );
         $err     = curl_errno( $ch );
         $errmsg  = curl_error( $ch );
@@ -32,7 +40,10 @@
         $header['content'] = $content;
         return $header;
     }
-
+	
+	echo "test";
+	print_r($_SERVER);
+	
 	if (!isset($_GET["url"]))
 	{
 		http_response_code(404);
@@ -61,6 +72,6 @@
 	else
 	{
 		header("Content-Type: " . $result["content_type"]);
-		echo $result['content'];
+		//echo $result['content'];
 	}
 ?>
