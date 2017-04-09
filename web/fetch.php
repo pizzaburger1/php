@@ -17,7 +17,10 @@
             CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
             CURLOPT_TIMEOUT        => 120,      // timeout on response
             CURLOPT_MAXREDIRS      => 10,       // stop after 10 redirects
-            CURLOPT_HTTPHEADER     => array('Content-Type: ' . $_SERVER["CONTENT_TYPE"]),
+            CURLOPT_HTTPHEADER     => array(
+                                            'Content-Type: ' . $_SERVER["CONTENT_TYPE"],
+                                            'Cookie: ' . $_SERVER['HTTP_COOKIE']
+                                      ),
         );
 
         $ch      = curl_init( $url );
